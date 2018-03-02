@@ -1,8 +1,10 @@
 from trustgame.base import *
 
 
-def play_match(first: Player, second: Player, rounds=10, price: Price = Price(), inversions=False, probability=0.):
+def play_match(first: Player, second: Player, rounds=10, price: Price = Price(), inversions=False, probability=0.,
+               return_protocol=False):
     score1, score2 = 0, 0
+    protocol = []
 
     for i in range(rounds):
         decision1, decision2 = first.make_turn(), second.make_turn()
@@ -15,7 +17,12 @@ def play_match(first: Player, second: Player, rounds=10, price: Price = Price(),
         first.set_turn_result(Turn(mine=decision1, opponent=decision2))
         second.set_turn_result(Turn(mine=decision2, opponent=decision1))
 
-    return score1, score2
+        protocol.append(Turn(mine=decision1, opponent=decision2))
+
+    if return_protocol:
+        return score1, score2, protocol
+    else:
+        return score1, score2
 
 
 def play_tournament(participants, rounds=10, price: Price = Price(), inversions=False, probability=0.):
