@@ -39,7 +39,7 @@ class Grudger(Player):
         self.has_cheated = False
 
     def __repr__(self):
-        return 'Grundger'
+        return 'Grudger'
 
     def make_turn(self):
         if self.has_cheated:
